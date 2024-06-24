@@ -1,130 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with AI</title>
-    <style>
-        /* 简单的样式 */
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('data:image/jpeg;base64,');
-            background-size: cover;
-            background-position: center;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-        }
-        #messages {
-            width: 100%;
-            max-width: 600px;
-            height: 400px;
-            border: 2px solid #ccc;
-            padding: 10px;
-            margin-top: 20px;
-            overflow-y: scroll;
-            background: white;
-        }
-        .message {
-            margin: 10px 0;
-        }
-        .role {
-            font-weight: bold;
-        }
-        .input-group {
-            display: flex;
-            margin-top: 10px;
-        }
-        .input-group input {
-            flex: 1;
-            padding: 10px;
-            font-size: 1em;
-        }
-        .input-group button {
-            padding: 10px;
-            font-size: 1em;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <div id="messages"></div>
-    <div class="input-group">
-        <input type="text" id="userInput" placeholder="输入你的消息...">
-        <button id="sendButton">发送</button>
-    </div>
-</div>
-
-<script>
-    async function sendMessage() {
-        const userInput = document.getElementById('userInput').value;
-        if (!userInput.trim()) {
-            return;
-        }
-
-        const messagesContainer = document.getElementById('messages');
-        const userMessageElement = document.createElement('div');
-        userMessageElement.className = 'message';
-        userMessageElement.innerHTML = `<div>You: ${userInput}</div>`;
-        messagesContainer.appendChild(userMessageElement);
-
-        const replyElement = document.createElement('div');
-        replyElement.className = 'message';
-        replyElement.innerHTML = `<div style="display: inline;">AI: 生成回复中...</div>`;
-        messagesContainer.appendChild(replyElement);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-        const response = await fetch('/api/chat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify([
-                { role: 'user', content: userInput }
-            ])
-        });
-
-        document.getElementById('userInput').value = '';
-
-        const data = await response.json();
-
-        replyElement.innerHTML = `<div style="display: inline;">AI: </div>`;
-
-        reply = ''
-        data.forEach(message => {
-            replyElement.innerHTML += `${message}`;
-            reply += `${message}`;
-            // //转换成语音
-            // const utterance = new SpeechSynthesisUtterance(message);
-            // speechSynthesis.speak(utterance);
-        });
-
-        //转换成语音
-        const utterance = new SpeechSynthesisUtterance(reply);
-        speechSynthesis.speak(utterance);
-
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    document.getElementById('sendButton').addEventListener('click', sendMessage);
-    document.getElementById('userInput').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            sendMessage();
-        }
-    });
-</script>
-</body>
+    <title>Vite App</title>
+    <script type="module" crossorigin src="/assets/index--ZVIPDHb.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-oK6J1YAK.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
 </html>
